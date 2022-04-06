@@ -29,7 +29,7 @@ pacman -S --noconfirm grub efibootmgr networkmanager network-manager-applet wpa_
 #if your drivers are Nvidia, uncomment 
 #pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
 
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id-grub=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
 gub-mkconfig -o /boot/grub/grub.cfg
 
