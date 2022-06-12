@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 hwclock --systohc
 sed -i '#en_US.UTF-8/en_US.UTF-8//' /etc/locale.gen
