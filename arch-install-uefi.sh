@@ -27,6 +27,17 @@ pacman -S --noconfirm grub efibootmgr networkmanager network-manager-applet wpa_
 #if your drivers are Nvidia, uncomment the line below 
 #pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
 
+#Display manager
+#Uncomment the line below to install xorg and Simple Desktop Display Manger(sddm).
+#pacman -S xorg xorg-server xorg-drivers mesa libgl sddm
+
+#A display manager is required to use KDE. Uncomment the line below to enable sddm.
+#systemctl enable sddm
+
+#Desktop Enviroment: KDE
+#Uncomment the line below to install kde and dependencies.
+# sudo pacman -S plasma-meta plasma-desktop plasma-wayland-session egl-wayland kde-applications kde-applications-meta
+
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -42,10 +53,3 @@ echo "myusername ALL=(ALL) ALL" >> /etc/sudoers.d/myusername #change by your use
 
 printf "\033[1;34mThe Installation is done! you can exit now typing CTRL + d to umount the partitions and reboot the system\n\033[m"
 printf "\033[1;34mYou can exit now typing CTRL + d then umount the partitions using 'umount -a' and reboot the system\n\033[m"
-
-
-
-
-
-
-
