@@ -76,7 +76,7 @@ systemctl enable reflector.timer
 
 function init(){    
     echo "Verificando se a senha sudo está configurada."
-    if [ $lock_status == "P" ]; then
+    if ! [ $lock_status == "P" ]; then
     echo "Você precisa adicionar uma senha root."
     setRoot; 
     else
