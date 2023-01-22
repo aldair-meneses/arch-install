@@ -10,13 +10,12 @@ function setRoot(){
 }
 
 function createUser(){
-    echo "Verificando se o sudo está instalado"
-    echo ""
+    echo -e "Verificando se o sudo está instalado\n"
     pacman -S --noconfirm sudo 
     set -e 
-    read -esp "Digite um nome para seu usuário" username 
+    read -esp "Digite um nome para seu usuário: " username 
     useradd -m $username
-    read -esp "Digite uma senha para seu usuário" password
+    read -esp "Digite uma senha para seu usuário: " password
     echo $username:$password | chpasswd    
     echo "$username ALL=(ALL) ALL" >> /etc/sudoers.d/$username
 }
@@ -83,7 +82,7 @@ function init(){
     echo "Sua senha root já está configurada"
     fi 
     createUser
-    echo -e "Dando inicio a instalação de pacotes./n"
+    echo -e "Dando inicio a instalação de pacotes.\n"
     sleep 5
     installPackages
 }
