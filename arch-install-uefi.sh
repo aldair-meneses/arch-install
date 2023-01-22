@@ -34,20 +34,6 @@ function setLocales(){
     echo "127.0.0.1 arch.localdomain arch" >> /etc/hosts
 }
 
-function init(){    
-    echo "Verificando se a senha sudo está configurada."
-    if [ $lock_status == "P" ]; then
-    echo "Você precisa adicionar uma senha root."
-    setRoot; 
-    else
-    echo "Sua senha root já está configurada"
-    fi 
-    createUser
-    echo -e "Dando inicio a instalação de pacotes./n"
-    sleep 5
-    installPackages
-}
-
 function installPackages(){
 pacman -S --noconfirm grub efibootmgr sudo networkmanager network-manager-applet wpa_supplicant mtools dosfstools base-devel pipewire pipewire-alsa pipewire-pulse pipewire-jack pavucontrol reflector ntfs-3g os-prober 
 
@@ -86,6 +72,23 @@ systemctl enable reflector.timer
 #remember to set '/etc/sudoers.d/myusername' to your username preference
 
 }
+
+
+function init(){    
+    echo "Verificando se a senha sudo está configurada."
+    if [ $lock_status == "P" ]; then
+    echo "Você precisa adicionar uma senha root."
+    setRoot; 
+    else
+    echo "Sua senha root já está configurada"
+    fi 
+    createUser
+    echo -e "Dando inicio a instalação de pacotes./n"
+    sleep 5
+    installPackages
+}
+
+init
 
 printf "\033[1;34mThe Installation is done! you can exit now typing CTRL + d to umount the partitions and reboot the system\n\033[m"
 printf "\033[1;34mYou can exit now typing CTRL + d then umount the partitions using 'umount -a' and reboot the system\n\033[m"
