@@ -6,7 +6,7 @@ lock_status=${var:4:2}
 
 function setRoot(){
     set -e 
-    root passwd 
+    passwd root
 }
 
 function createUser(){
