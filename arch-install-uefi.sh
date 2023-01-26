@@ -23,7 +23,7 @@ function createUser(){
 function setLocales(){
     ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
     hwclock --systohc
-    sed -i '#pt_BR.UTF-8/pt_BR.UTF-8//' /etc/locale.gen
+    sed -i 's/#pt_BR.UTF-8/pt_BR.UTF-8/' /etc/locale.gen
     locale-gen
     echo "LANG=pt_BR.UTF-8" >> /etc/locale.conf
     echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf
@@ -34,7 +34,7 @@ function setLocales(){
 }
 
 function installPackages(){
-pacman -S --noconfirm grub efibootmgr sudo networkmanager network-manager-applet wpa_supplicant mtools dosfstools base-devel pipewire pipewire-alsa pipewire-pulse pipewire-jack pavucontrol reflector ntfs-3g os-prober 
+pacman -S --noconfirm grub efibootmgr sudo networkmanager network-manager-applet wpa_supplicant mtools dosfstools base-devel pipewire pipewire-alsa pipewire-pulse pipewire-jack pavucontrol reflector ntfs-3g os-prober bluez bluez-utils
 
 #if your graphics card is intel, uncomment the line below
 #pacman -S mesa vulkan-intel
@@ -51,14 +51,14 @@ pacman -S --noconfirm grub efibootmgr sudo networkmanager network-manager-applet
 
 #Display manager
 #Uncomment the line below to install xorg and Simple Desktop Display Manger(sddm).
-pacman -S xorg xorg-server xorg-drivers mesa libgl sddm
+pacman -S --noconfirm xorg xorg-server xorg-drivers mesa libgl sddm
 
 #A display manager is required to use KDE. Uncomment the line below to enable sddm.
 systemctl enable sddm
 
 #Desktop Enviroment: KDE
 #Uncomment the line below to install kde and dependencies.
-sudo pacman -S plasma-meta plasma-desktop plasma-wayland-session egl-wayland kde-applications kde-applications-meta
+sudo pacman -S --noconfirm plasma-desktop plasma-wayland-session egl-wayland kde-applications 
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id="Arch Linux"
 
@@ -72,7 +72,6 @@ systemctl enable reflector.timer
 
 }
 
-
 function init(){    
     echo "Verificando se a senha sudo está configurada."
     if ! [ $lock_status == "P" ]; then
@@ -82,7 +81,10 @@ function init(){
     echo "Sua senha root já está configurada"
     fi 
     createUser
-    echo -e "Dando inicio a instalação de pacotes.\n"
+    echo -e "Gerando Locales..."
+    sleep 5
+    setLocales
+    echo -e "Dando inicio a instalação de pacotes..."
     sleep 5
     installPackages
 }

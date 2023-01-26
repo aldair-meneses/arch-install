@@ -10,3 +10,44 @@
 
 
 
+# Pós instalação 
+
+Para obter um ambiente agradável utilizando NVIDIA e Intel, siga os passos a seguir.
+
+De início você deve ter instalado os seguintes pacotes: `nvidia-open`,`nvidia-utils`,`nvidia-settings`.
+Você pode instalar esses pacote copiando e colando no terminal o comando:
+```bash
+sudo pacman -S nvidia-open nvidia-utils nvidia-settings
+```  
+Certifique-se também de instalar os drivers para o chip gráfico da Intel.
+```bash
+sudo pacman -S mesa vulkan-intel
+``` 
+Há também o driver `xf86-video-intel` mas que segundo uma nota na página da Intel Graphics na [Arch Wiki](https://wiki.archlinux.org/title/intel_graphics#Installation) não é recomendado a instalação apartir da 4ª geração do hardwares da Intel. 
+Para informações mais detalhadas da instalação desses drivers, tanto da Intel quanto NVIDIA, recomendo seguir os tópicos na Arch Wiki.
+
+[Intel: Arch Wiki](https://wiki.archlinux.org/title/intel_graphics)
+[NVIDIA: Arch Wiki](https://wiki.archlinux.org/title/NVIDIA)
+
+# NVIDIA Optimus
+
+A NVidia Optimus é uma tecnologia para GPU criada pela Nvidia que permite o usuário alternar e utilizar ambos adaptadores gráficos através do sistema. 
+Há alguns métodos para utilizar essa tecnologia e nesse documento será utilizado o [`optimus-manager`](https://github.com/Askannz/optimus-manager).
+
+Você instalar o `optimus-manager` através de um pacote da AUR. Utilize o comando a seguir para efetuar a o download e a instalação do pacote.
+`git clone https://aur.archlinux.org/optimus-manager.git
+cd optimus-manager
+makepkg -si
+`
+## Utilização
+`optimus-manager --switch nvidia` para a utilizar o driver da nvidia.
+
+`optimus-manager --switch integrated` para a utilizar o driver integrado (intel/AMD).
+
+`optimus-manager --switch hybrid` Para utilizar o modo híbrido que utiliza o gráfico integrado mas que utilzara a GPU da Nvidia em caso de demanda que é similar a forma que o Optimus funciona no Windows.
+
+O [`optimus-manager-qt`](https://github.com/Shatur95/optimus-manager-qt) fornece uma interface gráfica que facilita atroca entre as GPU's.
+
+Para mais informações e configurações avançadas, recomendo utilizar a repositório oficial da ferramenta.
+
+https://github.com/Askannz/optimus-manager
